@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavour Fusion Menu</title>
+    <style>
+        /* Add this CSS for a better cart design and animation */
+        body {
+            background-color: black;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: red;
+        }
+
+        .newsletter-subscription {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .newsletter-subscription input[type="email"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .newsletter-subscription input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #ffcc00;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 100px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .restaurant-title {
+            font-size: 60px;
+            font-style: italic;
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .logo img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .menu-heading {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .category-bar {
+            background-color: #444;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .category-btn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 24px;
+            margin: 0 20px;
+            transition: color 0.3s;
+        }
+
+        .category-btn:hover {
+            color: red;
+        }
+
+        .category-section {
+            display: none;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .category-section.active {
+            display: block;
+        }
+
+        .category-content {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .category-content-item {
+            background-color: #fff;
+            color: #333;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            width: calc(33% - 40px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .category-content-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .category-content-item h3 {
+            margin-top: 10px;
+        }
+
+        .category-content-item p {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .category-content-item .price {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .category-content-item .add-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffcc00;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category-content-item .add-btn:hover {
+            background-color: #e6b800;
+        }
+
+        .cart-container {
+            position: fixed;
+            top: 0;
+            right: -350px; /* Initially hidden */
+            width: 300px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            padding: 20px;
+            transition: right 0.5s;
+            z-index: 1000;
+        }
+
+        .cart-container.show {
+            right: 0;
+        }
+
+        .cart-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+        }
+
+        .cart-item-price {
+            margin-top: 5px;
+            color: #ccc;
+        }
+
+        .remove-btn {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .proceed-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .proceed-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Flavour Fusion Logo">
+        </div>
+        <div class="menu-links">
+            <a href="pracc.html">HOME</a>
+            <a href="loginpracc.html">LOGIN</a>
+            <a href="reservation.html">RESERVATION</a>
+        </div>
+    </div>
+
+    <div class="restaurant-title">
+        Flavour Fusion
+    </div>
+
+    <div class="menu-heading">
+        MENU
+    </div>
+
+    <div class="category-bar">
+        <button class="category-btn" onclick="showCategory('starters')">Starters</button>
+        <button class="category-btn" onclick="showCategory('main-courses')">Main Courses</button>
+        <button class="category-btn" onclick="showCategory('desserts')">Desserts</button>
+    </div>
+
+    <div id="starters" class="category-section">
+        <div class="category-content">
+            <div class="category-content-item">
+                <img src="fried.jpg" alt="Starter 1">
+                <h3>Crispy Parmesan Truffle Fries</h3>
+                <p>Golden-brown fries coated in grated Parmesan cheese and a hint of truffle oil, giving them a rich and savory flavor.</p>
+                <div class="price">Rs 499</div> <!-- Added price element -->
+                <button class="add-btn">Add</button> <!-- Added add button -->
+            </div>
+            <div class="category-content-item">
+                <img src="garlic.jpg" alt="Starter 2">
+                <h3>Classic Garlic Bread</h3>
+                <p>Slices of French bread toasted until golden, then rubbed with fresh garlic and topped with a spread of melted butter and a sprinkle of parsley. It's simple, satisfying, and bursting with garlicky goodness.</p>
+                <div class="price">Rs499</div> <!-- Added price element -->
+                <button class="add-btn">Add</button> <!-- Added add button -->
+            </div>
+            <!-- Add more starter items here -->
+        </div>
+    </div>
+
+    <div id="main-courses" class="category-section">
+        <div class="category-content">
+            <div class="category-content-item">
+                <img src="biryani.jpg" alt="Main Course 1">
+                <h3>Hyderabadi Biryani</h3>
+                <p>Fragrant Basmati Rice Layered with Tender Spiced Meat (often chicken or lamb), Caramelized Onions, Aromatic Saffron, and Fresh Mint Leaves, Slow-cooked to perfection in a Blend of Traditional Spices</p>
+                <div class="price">Rs 799</div> <!-- Added price element -->
+                <button class="add-btn">Add</button> <!-- Added add button -->
+            </div>
+            <div class="category-content-item">
+                <img src="spagh.jpg" alt="Main Course 2">
+                <h3>Spaghetti Aglio e Olio</h3>
+                <p> It's a simple yet flavorful dish made with al dente spaghetti tossed in a sauce of garlic-infused olive oil, red pepper flakes for a kick, and freshly chopped parsley. Finished with a sprinkle of grated Parmesan cheese, it's a timeless Italian favorite that's both satisfying and delicious.</p>
+                <div class="price">Rs 980</div> <!-- Added price element -->
+                <button class="add-btn">Add</button> <!-- Added add button -->
+            </div>
+            <!-- Add more main course items here -->
+        </div>
+    </div>
+
+    <div id="desserts" class="category-section">
+        <div class="category-content">
+            <div class="category-content-item">
+                <img src="donuts.jpg" alt="Dessert 1">
+                <h3>Fluffy Vanilla Glazed Donuts</h3>
+                <p>They're light and airy donuts with a hint of vanilla in the dough, fried to golden perfection, and coated in a sweet and glossy vanilla glaze. Each bite is a heavenly combination of soft, pillowy texture and sweet vanilla flavor, perfect for indulging in a delightful treat!</p>
+                <div class="price">Rs 570</div> <!-- Added price element -->
+                <button class="add-btn">Add</button> <!-- Added add button -->
+            </div>
+            <div class="category-content-item">
+                <img src="rasmalai.jpg" alt="Dessert 2">
+                <h3>Rasmalai</h3>
+                <p>Soft and Spongy Cottage Cheese Dumplings, soaked in a Creamy, Sweetened Milk infused with Cardamom and Saffron, garnished with slivers of Pistachios and Almonds. It's a luxurious and indulgent treat that melts in your mouth with each heavenly bite.</p>
+                <div class="price">Rs 340</div> <!-- Added price element -->
+                <button class="add-btn">Add</button> <!-- Added add button -->
+            </div>
+            <!-- Add more dessert items here -->
+        </div>
+    </div>
+
+    <div class="newsletter-subscription">
+        <h2 style="color: white;">Subscribe to Our Newsletter</h2>
+        <form id="newsletter-form" action="#" method="POST">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="submit" value="Subscribe">
+        </form>
+    </div>
+
+    <div class="cart-container">
+        <div class="cart-header">My Cart</div>
+        <div id="cart-items"></div>
+        <div id="cart-total" class="cart-item">
+            <div class="cart-item-name">Total:</div>
+            <div id="cart-total-price" class="cart-item-price">Rs 0</div>
+        </div>
+        <button id="proceed-btn" class="proceed-btn" style="display: none;">
+            <a href="payment.html" id="payment-link">Proceed to Payment</a>
+        </button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Thank you for subscribing to our newsletter.</p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        function showCategory(category) {
+            var sections = document.getElementsByClassName('category-section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active');
+            }
+            document.getElementById(category).classList.add('active');
+        }
+
+        document.querySelectorAll('.add-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const item = this.closest('.category-content-item');
+        const itemName = item.querySelector('h3').textContent;
+        const itemPrice = parseFloat(item.querySelector('.price').textContent.replace('Rs', '').trim());
+        const itemImgSrc = item.querySelector('img').src;
+
+        addItemToCart(itemName, itemPrice, itemImgSrc);
+        updateCartTotal();
+        showCart();
+    });
+});
+
+function addItemToCart(name, price, imgSrc) {
+    const cartItems = document.getElementById('cart-items');
+
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+
+    cartItem.innerHTML = `
+        <img src="${imgSrc}" alt="${name}">
+        <div class="cart-item-info">
+            <div class="cart-item-name">${name}</div>
+            <div class="cart-item-price">Rs ${price.toFixed(2)}</div>
+        </div>
+        <button class="remove-btn">Remove</button>
+    `;
+
+    cartItems.appendChild(cartItem);
+
+    cartItem.querySelector('.remove-btn').addEventListener('click', function () {
+        cartItem.remove();
+        updateCartTotal();
+        if (cartItems.children.length === 0) {
+            hideCart();
+        }
+    });
+}
+
+function updateCartTotal() {
+    const cartItems = document.querySelectorAll('#cart-items .cart-item-price');
+    let total = 0;
+    cartItems.forEach(item => {
+        total += parseFloat(item.textContent.replace('Rs', '').trim());
+    });
+    document.getElementById('cart-total-price').textContent = `Rs ${total.toFixed(2)}`;
+
+    // Show proceed button if there are items in the cart
+    const proceedButton = document.getElementById('proceed-btn');
+    if (total > 0) {
+        proceedButton.style.display = 'block';
+    } else {
+        proceedButton.style.display = 'none';
+    }
+}
+
+
+
+function showCart() {
+    document.querySelector('.cart-container').classList.add('show');
+}
+
+function hideCart() {
+    document.querySelector('.cart-container').classList.remove('show');
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Handle form submission
+document.getElementById("newsletter-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    modal.style.display = "block";
+});
+
+
+
+        
+    </script>
+
+</body>
+
+</html>

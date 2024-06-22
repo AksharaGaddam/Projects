@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #f9f9f9, hsl(201, 71%, 66%));
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .header {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .payment-option:hover {
+            background-color: #45a049;
+        }
+
+        .payment-section, .dynamic-fields {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .payment-details label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .payment-details input {
+            width: calc(100% - 22px); /* Adjusted width calculation */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+
+        .pay-btn {
+            display: block;
+            width: calc(100% - 22px); /* Adjusted width calculation */
+            padding: 15px;
+            background-color: #67bcf5;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box; /* Ensure padding doesn't expand button width */
+        }
+
+        .pay-btn:hover {
+            background-color: #67bcf5;
+        }
+
+        .credit-card-image {
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        .qr-code {
+            width: 150px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Payment Page</div>
+
+        <div class="payment-options">
+            <button class="payment-option" onclick="showSection('net-banking')">Net Banking</button>
+            <button class="payment-option" onclick="showSection('upi')">UPI</button>
+            <button class="payment-option" onclick="showSection('cod')">Cash on Delivery</button>
+        </div>
+
+        <div id="net-banking" class="payment-section">
+            <div class="header">Net Banking</div>
+            <div class="payment-details">
+                <label for="cardholder-name">Cardholder Name</label>
+                <input type="text" id="cardholder-name" placeholder="Cardholder Name">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="Card Number">
+                <label for="expiry-month">Expiry Month</label>
+                <input type="text" id="expiry-month" placeholder="MM">
+                <label for="expiry-year">Expiry Year</label>
+                <input type="text" id="expiry-year" placeholder="YYYY">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="CVV">
+            </div>
+            <a href="#" class="pay-btn" onclick="validateNetBanking()">Pay</a>
+        </div>
+
+        <div id="upi" class="payment-section">
+            <div class="header">UPI Payment</div>
+            <label for="upi-id">UPI ID</label>
+            <input type="text" id="upi-id" placeholder="Enter UPI ID">
+            <p>Or scan the QR code below:</p>
+            <img src="QR.png" alt="QR Code" class="qr-code">
+            <a href="#" class="pay-btn" onclick="validateUPI()">Pay</a>
+        </div>
+
+        <div id="cod" class="payment-section">
+            <div class="header">Cash on Delivery</div>
+            <p>Confirm and place your order.</p>
+            <a href="confirmed.html" class="pay-btn">Place Order</a>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.payment-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('fade-in');
+            });
+
+            const activeSection = document.getElementById(sectionId);
+            activeSection.style.display = 'block';
+            activeSection.classList.add('fade-in');
+        }
+
+        function validateNetBanking() {
+            const cardholderName = document.getElementById('cardholder-name').value.trim();
+            const cardNumber = document.getElementById('card-number').value.trim();
+            const expiryMonth = document.getElementById('expiry-month').value.trim();
+            const expiryYear = document.getElementById('expiry-year').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
+
+            if (cardholderName === '' || cardNumber === '' || expiryMonth === '' || expiryYear === '' || cvv === '') {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Perform additional validations if needed
+
+            // Proceed to confirmed.html
+            window.location.href = 'confirmed.html';
+        }
+
+        function validateUPI() {
+            const upiID = document.getElementById('upi-id').value.trim();
+
+            if (upiID === '') {
+                alert('Please enter your UPI ID.');
+                return;
+            }
+
+            // Perform additional validations if needed
+
+            // Proceed to confirmed.html
+            window.location.href = 'confirmed.html';
+        }
+    </script>
+</body>
+</html>

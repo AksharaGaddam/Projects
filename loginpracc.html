@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Flavour Fusion</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('srisri.png'); /* Specify your background image URL */
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        .back-button,
+        .register-button {
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover,
+        .back-button:hover,
+        .register-button:hover {
+            background-color: #e67e22;
+        }
+
+        .register-button:hover {
+            background-color: #d35400; /* Hover color for sign-up button */
+        }
+
+        label {
+            color: #333;
+            text-align: left;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .remember {
+            color: #333;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm" >
+            <label for="username">Username or Email:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="remember">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember me</label>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <button id="backButton" class="back-button">Back</button>
+        <button class="register-button">Sign Up</button>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Validate username or email
+            if (!username.includes("@gmail.com")) {
+                alert("Username or email must contain '@gmail.com'");
+                return;
+            }
+
+            // Validate password length
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long");
+                return;
+            }
+
+            // If validation passes, redirect to the main page
+            window.location.href = "menupracc.html";
+        });
+
+        // When the user clicks on the back button, go to the main page
+        document.getElementById("backButton").onclick = function () {
+            window.location.href = "pracc.html";
+        };
+
+        // When the user clicks on the sign-up button, redirect to the register page
+        document.querySelector(".register-button").onclick = function () {
+            window.location.href = "regist.html";
+        };
+    </script>
+</body>
+
+</html>

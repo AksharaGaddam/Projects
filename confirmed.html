@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #000000, hsl(201, 72%, 21%));
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    animation: modal-fade 0.3s ease;
+}
+
+@keyframes modal-fade {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content {
+    padding: 30px;
+}
+
+.header {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.gif-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.gif-image {
+    max-width: 50%;
+    display: block;
+    margin-right: 20px;
+}
+
+.delivery-info {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.order-details {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.order-info {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.order-label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 150px;
+}
+
+.order-value {
+    flex: 1;
+}
+
+.back-to-home {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    background-color: #3498db; /* Blue color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.back-to-home:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="modal">
+            <div class="modal-content">
+                <div class="header">Order Confirmed!</div>
+                
+                <div class="gif-container">
+                    <img src="Food Delivery.gif" alt="Order Confirmed GIF" class="gif-image">
+                    <div class="delivery-info">
+                        <p><b>Your food is being prepared.</b></p>
+                        <p><b>Estimated Delivery Time: 30 minutes</b></p>
+                    </div>
+                </div>
+
+                <div class="order-details">
+                    <div class="order-info">
+                        <div class="order-label">Order Number:</div>
+                        <div class="order-value">#123456</div>
+                    </div>
+                    <div class="order-info">
+                        <div class="order-label">Order Date:</div>
+                        <div class="order-value">June 20, 2024</div>
+                    </div>
+                    <div class="order-info">
+                        <div class="order-label">Delivery Address:</div>
+                        <div class="order-value">123 Main Street, Cityville, Country</div>
+                    </div>
+                    <div class="order-info">
+                        <div class="order-label">Total Amount:</div>
+                        <div class="order-value"> Rs 890</div>
+                    </div>
+                </div>
+
+                <a href="menupracc.html" class="back-to-home">Continue shopping</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

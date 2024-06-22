@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | Flavour Fusion</title>
+<style>
+  body {
+    background: url('bgbgbghu.png') no-repeat center center fixed; 
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .container-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    max-width: 600px;
+    margin-top: 20px; /* Adjusted margin for better spacing */
+  }
+
+  .heading {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px; /* Added margin for consistent spacing */
+  }
+
+  textarea {
+    resize: none; /* Prevents resizing */
+  }
+
+  p {
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-back {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-back:hover {
+    background-color: #555;
+  }
+
+  #confirmation {
+    display: none;
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); 
+    justify-content: center;
+    align-items: center;
+  }
+
+  #confirmation:target {
+    display: flex;
+  }
+
+  .confirmation-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 450px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .confirmation-content p {
+    color: black; 
+    font-size: 20px; 
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="container-form">
+  <form id="registrationForm">
+    <h2 class="heading">Register</h2>
+    <div class="form-field">
+      <p>First Name</p>
+      <input type="text" id="firstName" placeholder="First Name" required>
+    </div>
+    <div class="form-field">
+      <p>Last Name</p>
+      <input type="text" id="lastName" placeholder="Last Name" required>
+    </div>
+    <div class="form-field">
+      <p>Phone Number</p>
+      <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+    </div>
+    <div class="form-field">
+      <p>Email ID</p>
+      <input type="email" id="email" placeholder="Email ID" required>
+    </div>
+    <div class="form-field">
+      <p>Address</p>
+      <textarea id="address" rows="4" placeholder="Your Address" required></textarea>
+    </div>
+    <button class="btn" type="button" onclick="submitForm()">Submit</button>
+    <a href="loginpracc.html" class="btn-back">Back</a>
+  </form>
+</div>
+
+<div id="confirmation">
+  <div class="confirmation-content">
+    <a href="#" class="close">&times;</a>
+    <p>Thank you for registering! We look forward to serving you!</p>
+  </div>
+</div>
+
+<script>
+  function submitForm() {
+    var confirmationModal = document.getElementById('confirmation');
+    confirmationModal.style.display = 'flex';
+
+    // Wait for 2 seconds and then redirect to the main page
+    setTimeout(function() {
+      window.location.href = 'loginpracc.html';
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>

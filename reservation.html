@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking</title>
+<style>
+  body {
+    background: url('bgbgbghu.png') no-repeat center center fixed; 
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .container-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    width: 70%;
+    max-width: 800px; /* Adjusted for a more horizontal layout */
+    overflow: hidden; /* Ensures the content stays within the borders */
+  }
+
+  .image-container {
+    flex: 1;
+    background: url('resse.jpg') no-repeat center center;
+    background-size: cover;
+  }
+
+  .form-container {
+    flex: 1.5;
+    padding: 40px;
+  }
+
+  .heading {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    margin-top: 5px;
+  }
+
+  p {
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  #confirmation {
+    display: none;
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); 
+    justify-content: center;
+    align-items: center;
+  }
+
+  #confirmation:target {
+    display: flex;
+  }
+
+  .confirmation-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 450px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .confirmation-content p {
+    color: black; 
+    font-size: 20px; 
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn-back {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-back:hover {
+    background-color: #555;
+  }
+</style>
+</head>
+<body>
+<div class="container-form">
+  <div class="image-container">
+    <!-- Image is set in the CSS background property -->
+  </div>
+  <div class="form-container">
+    <form action="#confirmation">
+      <h2 class="heading">Online Reservation</h2>
+      <div class="form-field">
+        <p>Your Name</p>
+        <input type="text" placeholder="Your Name">
+      </div>
+      <div class="form-field">
+        <p>Your Email</p>
+        <input type="text" placeholder="Your Email">
+      </div>
+      <div class="form-field">
+        <p>The Date</p>
+        <input type="date">
+      </div>
+      <div class="form-field">
+        <p>The Time</p>
+        <input type="time">
+      </div>
+      <div class="form-field">
+        <p>Number Of People</p>
+        <select name="select" id="">
+          <option value="1">1 person</option>
+          <option value="2">2 people</option>
+          <option value="3">3 people</option>
+          <option value="4">4 people</option>
+          <option value="5">5 people</option>
+          <option value="5+">5+ people</option>
+        </select>
+      </div>
+      <button class="btn" type="submit">Submit</button>
+      <a href="pracc.html" class="btn-back">Back</a>
+    </form>
+  </div>
+</div>
+
+<div id="confirmation">
+  <div class="confirmation-content">
+    <a href="#" class="close">&times;</a>
+    <p>Your Reservation Is Confirmed !!! Can't Wait To See You Soon!!</p>
+  </div>
+</div>
+
+</body>
+</html>
